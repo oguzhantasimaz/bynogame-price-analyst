@@ -19,6 +19,8 @@ This tool provides price analysis and comparison features for products available
 
 The frontend GitHub repository can be found [here](https://github.com/oguzhantasimaz/bynogame-price-analyst-fe).
 
+![Structure](https://github.com/oguzhantasimaz/bynogame-price-analyst/blob/main/structure.png)
+
 ## Technologies Used
 
 - **Golang**: Used for building the main backend API, as well as the Producer and Consumer components.
@@ -55,10 +57,7 @@ The frontend provides an intuitive interface for users to:
 
 ## Usage
 
-1. Access the [frontend](https://bynogamepriceanalyst.vercel.app/) to start using the tool.
-2. Explore products and compare prices from Bynogame.com and the Steam market.
-3. Utilize the search and filter options to refine your results.
-4. Stay up-to-date with the latest price trends and historical data.
+Access the [frontend](https://bynogamepriceanalyst.vercel.app/) to start using the tool.
 
 ## TODO
 
