@@ -4,11 +4,13 @@ import (
 	"context"
 	"github.com/oguzhantasimaz/bynogame-price-analyst/core/domain"
 	log "github.com/sirupsen/logrus"
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 type CsItemRepository interface {
-	GetCsItems(ctx context.Context, filter interface{}) ([]*domain.CsItem, error)
+	GetCsItems(ctx context.Context, filter interface{}, limit int64, sort bson.D) ([]*domain.CsItem, error)
 	PostCsItem(ctx context.Context, item *domain.CsItem) error
 }
 
@@ -22,9 +24,18 @@ func NewCsItemRepository(mongo *mongo.Database, cn string) CsItemRepository {
 	}
 }
 
-func (r *csItemRepository) GetCsItems(ctx context.Context, filter interface{}) ([]*domain.CsItem, error) {
-	cursor, err := r.Find(ctx, filter, nil)
+func (r *csItemRepository) GetCsItems(ctx context.Context, filter interface{}, limit int64, sort bson.D) ([]*domain.CsItem, error) {
+	opts := options.Find()
+	opts.SetLimit(limit)
+	opts.SetSort(sort)
+
+	if filter == nil {
+		filter = bson.D{{}}
+	}
+
+	cursor, err := r.Find(ctx, filter, opts)
 	if err != nil {
+		log.Error(err)
 		return nil, err
 	}
 

@@ -5,6 +5,7 @@ import (
 	"github.com/oguzhantasimaz/bynogame-price-analyst/core/domain"
 	"github.com/oguzhantasimaz/bynogame-price-analyst/core/repository"
 	log "github.com/sirupsen/logrus"
+	"go.mongodb.org/mongo-driver/bson"
 )
 
 type csItemUseCase struct {
@@ -18,18 +19,12 @@ func NewCsItemUseCase(csItemRepository repository.CsItemRepository) domain.CsIte
 }
 
 func (cu *csItemUseCase) GetCsItems(ctx context.Context, limit int) ([]*domain.CsItem, error) {
-	filter := map[string]interface{}{
-		"limit": limit,
-	}
-
-	items, err := cu.csItemRepository.GetCsItems(ctx, filter)
+	sort := bson.D{{"createdAt", -1}}
+	items, err := cu.csItemRepository.GetCsItems(ctx, nil, int64(limit), sort)
 	if err != nil {
 		log.Error(err)
 		return nil, err
 	}
-
-	log.Info("ITEMS IN USECASE: ", items)
-
 	return items, nil
 }
 

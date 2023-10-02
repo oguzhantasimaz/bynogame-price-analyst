@@ -31,8 +31,6 @@ func (cc *CsItemController) GetCsItems(c echo.Context) error {
 		return c.JSON(400, domain.ErrorResponse{Message: err.Error()})
 	}
 
-	log.Info("ITEMS", items)
-
 	return c.JSON(200, items)
 
 }
