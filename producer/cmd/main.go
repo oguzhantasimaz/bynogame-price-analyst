@@ -13,13 +13,12 @@ import (
 func main() {
 	log.Println("Producer started")
 	env := bootstrap.NewEnv()
-	log.Println("KAFKA_USERNAME: ", env.KafkaUsername)
-	kwCS := pkg.NewKafkaWriter("cs", env.KafkaUsername, env.KafkaPassword, env.KafkaBrokerUrl)
-	defer kwCS.Close()
+	kw := pkg.NewKafkaWriter("cs", env.KafkaUsername, env.KafkaPassword, env.KafkaBrokerUrl)
+	defer kw.Close()
 
 	cronClient := pkg.NewCronClient()
 	cronClient.Schedule("5m", func() {
-		ProcessCsItems(kwCS)
+		ProcessCsItems(kw)
 	})
 
 	cronClient.Start()

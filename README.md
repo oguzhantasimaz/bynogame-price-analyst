@@ -64,7 +64,9 @@ Access the [frontend](https://bynogamepriceanalyst.vercel.app/) to start using t
 - [ ] Add price history graph.
 - [ ] Add search and filter options.
 - [ ] Add pagination.
-- [ ] And more...
+- [ ] Add Filter by item type, quality, rarity and exterior.
+- [ ] Add Filter by item quality.
+
 
 ## Contributing
 
@@ -73,3 +75,13 @@ Feel free to open issues or submit pull requests to this GitHub repository.
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
+
+
+Golang: Core, Consumer ve Producer bu programlama dilinde yazılmıştır. 
+Kafka: Veri iletişimi ve mesajlaşma için Kafka kullanılmıştır. 
+MongoDB: Verilerin depolanması için MongoDB tercih edilmiştir.
+Fly.io: Core, Consumer ve Producer Fly.io üzerinde çalışmaktadır.
+Upstash: Kafka serverless olarak Upstash üzerinde çalışmaktadır.
+MongoDB Atlas: MongoDB Atlas üzerinde çalışmaktadır.
+React.js: Frontend framework olarak React.js kullanılmıştır.
+Vercel: Frontend Vercel üzerinde çalışmaktadır.
