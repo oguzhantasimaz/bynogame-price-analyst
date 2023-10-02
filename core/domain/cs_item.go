@@ -43,4 +43,5 @@ type CsItemInfoSteam struct {
 	HashBare     string  `json:"hashBare" bson:"hashBare"`
 	Hash         string  `json:"hash" bson:"hash"`
 	StickersText string  `json:"stickersText" bson:"stickersText"`
+	Float        float64 `json:"float"`
 }

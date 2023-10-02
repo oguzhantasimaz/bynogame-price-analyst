@@ -37,6 +37,7 @@ type CsItemInfoSteam struct {
 	HashBare     string  `json:"hashBare"`
 	Hash         string  `json:"hash"`
 	StickersText string  `json:"stickersText"`
+	Float        float64 `json:"float"`
 }
 
 type CustomTime struct {
