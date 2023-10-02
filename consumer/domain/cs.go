@@ -15,7 +15,7 @@ type CsItem struct {
 	GameCode         string          `json:"gameCode"`
 	SellerOnline     bool            `json:"sellerOnline"`
 	Status           string          `json:"status"`
-	CreatedAt        CustomTime      `json:"createdAt"`
-	DateTimeSold     CustomTime      `json:"dateTimeSold"`
+	CreatedAt        int64           `json:"createdAt"`
+	DateTimeSold     int64           `json:"dateTimeSold"`
 	SteamStats       SteamResponse   `json:"steamStats"`
 }

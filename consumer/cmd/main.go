@@ -6,6 +6,7 @@ import (
 	"github.com/oguzhantasimaz/bynogame-price-analyst/consumer/bootstrap"
 	"github.com/oguzhantasimaz/bynogame-price-analyst/consumer/domain"
 	"github.com/oguzhantasimaz/bynogame-price-analyst/consumer/pkg"
+	"github.com/oguzhantasimaz/bynogame-price-analyst/consumer/util"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -23,7 +24,7 @@ func main() {
 			continue
 		}
 
-		//log.Info("Message received: ", string(message.Value))
+		log.Info("Message received")
 
 		var bgCsItem *domain.ByNoGameCsItem
 		if err := json.Unmarshal(message.Value, &bgCsItem); err != nil {
@@ -31,9 +32,7 @@ func main() {
 			continue
 		}
 
-		log.Info("Item: ", bgCsItem)
-
-		hashedName := pkg.HashItemName(bgCsItem.TypeInfoSteam.Hash)
+		hashedName := util.HashItemName(bgCsItem.TypeInfoSteam.Hash)
 
 		sr, err := pkg.GetItemSteamMarketPrice(hashedName)
 		if err != nil {
@@ -41,9 +40,17 @@ func main() {
 			continue
 		}
 
-		log.Println("SteamResponse: ", sr)
+		createdAtTime, err := util.ParseTimeAsUnix(bgCsItem.CreatedAt)
+		if err != nil {
+			log.Error(err)
+			continue
+		}
+		dateTimeSoldTime, err := util.ParseTimeAsUnix(bgCsItem.DateTimeSold)
+		if err != nil {
+			log.Error(err)
+			continue
+		}
 
-		// Merge SteamResponse and ByNoGameCsItem to CsItem
 		csItem := domain.CsItem{
 			SellerMarketName: bgCsItem.SellerMarketName,
 			Description:      bgCsItem.Description,
@@ -59,26 +66,14 @@ func main() {
 			GameCode:         bgCsItem.GameCode,
 			SellerOnline:     bgCsItem.SellerOnline,
 			Status:           bgCsItem.Status,
-			CreatedAt:        bgCsItem.CreatedAt,
-			DateTimeSold:     bgCsItem.DateTimeSold,
+			CreatedAt:        createdAtTime,
+			DateTimeSold:     dateTimeSoldTime,
 			SteamStats:       *sr,
 		}
 
-		log.Println("CsItem: ", csItem)
-
-		//if err := pkg.PostToCoreService(csItem); err != nil {
-		//	log.Error(err)
-		//	continue
-		//}
+		if err := pkg.PostToCoreService(csItem, env.CoreServiceUrl); err != nil {
+			log.Error(err)
+			continue
+		}
 	}
-
-	//hashedItem := pkg.HashItemName("★ Gut Knife | Scorched (Field-Tested)")
-	//println(hashedItem)
-	//
-	//sr, err := pkg.GetItemSteamMarketPrice(hashedItem)
-	//if err != nil {
-	//	log.Error(err)
-	//}
-	//
-	//log.Println("SteamResponse: ", sr)
 }

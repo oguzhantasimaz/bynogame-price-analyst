@@ -17,7 +17,7 @@ const (
 	date                 = 0
 )
 
-func GetBynoGameCsListings() (*[]domain.CsItem, error) {
+func GetBynoGameCsListings() (*[]domain.ByNoGameCsItem, error) {
 	var bynogameResp *domain.ByNoGameCsResponse
 
 	url := fmt.Sprintf("%s%s?%s=%d&%s=%d", byNoGameUrl, byNoGameGameNameCs, "size", batchSize, "date", date)

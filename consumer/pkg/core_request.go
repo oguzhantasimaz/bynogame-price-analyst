@@ -9,11 +9,10 @@ import (
 )
 
 const (
-	coreServiceUrl      = "http://localhost:8080"
-	coreServiceEndpoint = "/api/v1/cs"
+	coreServiceEndpoint = "/api/cs"
 )
 
-func PostToCoreService(csItem domain.CsItem) error {
+func PostToCoreService(csItem domain.CsItem, coreServiceUrl string) error {
 	url := coreServiceUrl + coreServiceEndpoint
 
 	payload, err := json.Marshal(csItem)
@@ -26,6 +25,7 @@ func PostToCoreService(csItem domain.CsItem) error {
 		log.Error(err)
 		return err
 	}
+	req.Header.Set("Content-Type", "application/json")
 
 	client := &http.Client{}
 	resp, err := client.Do(req)
@@ -36,6 +36,6 @@ func PostToCoreService(csItem domain.CsItem) error {
 	defer resp.Body.Close()
 
 	log.Info("response Status:", resp.Status)
-	
+
 	return nil
 }
