@@ -13,7 +13,7 @@ const (
 	byNoGameUrl          = "https://integration.bynogame.com/api/listing/last/"
 	byNoGameGameNameCs   = "csgo"
 	byNoGameGameNameDota = "dota2"
-	batchSize            = 100
+	batchSize            = 25
 	date                 = 0
 )
 

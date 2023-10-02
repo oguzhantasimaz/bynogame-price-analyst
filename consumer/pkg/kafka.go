@@ -6,6 +6,7 @@ import (
 	"github.com/segmentio/kafka-go"
 	"github.com/segmentio/kafka-go/sasl/scram"
 	"log"
+	"time"
 )
 
 type KafkaReader struct {
@@ -24,9 +25,12 @@ func NewKafkaReader(topic, username, password, url string) *KafkaReader {
 	}
 
 	reader := kafka.NewReader(kafka.ReaderConfig{
-		Brokers: []string{url},
-		Topic:   topic,
-		Dialer:  dialer,
+		Brokers:        []string{url},
+		Topic:          topic,
+		Dialer:         dialer,
+		CommitInterval: 5 * time.Minute,              // Commit offsets every 5 minutes
+		ErrorLogger:    kafka.LoggerFunc(log.Printf), // Log errors
+		IsolationLevel: kafka.ReadCommitted,
 	})
 
 	return &KafkaReader{kr: reader}

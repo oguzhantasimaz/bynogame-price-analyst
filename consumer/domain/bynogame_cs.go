@@ -15,8 +15,8 @@ type ByNoGameCsItem struct {
 	GameCode         string          `json:"gameCode"`
 	SellerOnline     bool            `json:"sellerOnline"`
 	Status           string          `json:"status"`
-	CreatedAt        string          `json:"createdAt"`
-	DateTimeSold     string          `json:"dateTimeSold"`
+	CreatedAt        CustomTime      `json:"createdAt"`
+	DateTimeSold     CustomTime      `json:"dateTimeSold"`
 }
 
 type CsItemInfoSteam struct {
@@ -31,4 +31,8 @@ type CsItemInfoSteam struct {
 	HashBare     string  `json:"hashBare"`
 	Hash         string  `json:"hash"`
 	StickersText string  `json:"stickersText"`
+}
+
+type CustomTime struct {
+	UnixTime int64
 }

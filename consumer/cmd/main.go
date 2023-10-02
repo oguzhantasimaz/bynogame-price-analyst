@@ -40,14 +40,11 @@ func main() {
 			continue
 		}
 
-		createdAtTime, err := util.ParseTimeAsUnix(bgCsItem.CreatedAt)
-		if err != nil {
-			log.Error(err)
-			continue
-		}
-		dateTimeSoldTime, err := util.ParseTimeAsUnix(bgCsItem.DateTimeSold)
-		if err != nil {
-			log.Error(err)
+		if sr == nil {
+			log.Error("Item not found in steam market: " + hashedName)
+			sr = &domain.SteamResponse{
+				Success: false,
+			}
 			continue
 		}
 
@@ -66,8 +63,8 @@ func main() {
 			GameCode:         bgCsItem.GameCode,
 			SellerOnline:     bgCsItem.SellerOnline,
 			Status:           bgCsItem.Status,
-			CreatedAt:        createdAtTime,
-			DateTimeSold:     dateTimeSoldTime,
+			CreatedAt:        bgCsItem.CreatedAt.UnixTime,
+			DateTimeSold:     bgCsItem.DateTimeSold.UnixTime,
 			SteamStats:       *sr,
 		}
 

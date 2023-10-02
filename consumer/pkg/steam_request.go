@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/oguzhantasimaz/bynogame-price-analyst/consumer/domain"
+	log "github.com/sirupsen/logrus"
 	"io"
 	"net/http"
 )
@@ -21,18 +22,21 @@ func GetItemSteamMarketPrice(hashedName string) (*domain.SteamResponse, error) {
 
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
+		log.Error(err)
 		return nil, err
 	}
 
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
+		log.Error(err)
 		return nil, err
 	}
 
 	var body []byte
 	body, err = io.ReadAll(resp.Body)
 	if err != nil {
+		log.Error(err)
 		return nil, err
 	}
 

@@ -44,8 +44,6 @@ func (cc *CsItemController) PostCsItem(c echo.Context) error {
 		return c.JSON(400, err)
 	}
 
-	log.Info(item)
-
 	err := cc.CsItemUseCase.PostCsItem(ctx, item)
 	if err != nil {
 		log.Error(err)
