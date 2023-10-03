@@ -55,6 +55,10 @@ The frontend provides an intuitive interface for users to:
 - See the latest price
 - Percentage between the two sources.
 
+## Screenshots
+
+![Screenshot1](https://github.com/oguzhantasimaz/bynogame-price-analyst/blob/main/example.png)
+
 ## Usage
 
 Access the [frontend](https://bynogamepriceanalyst.vercel.app/) to start using the tool.
@@ -76,13 +80,3 @@ Feel free to open issues or submit pull requests to this GitHub repository.
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
-
-
-Golang: Core, Consumer ve Producer bu programlama dilinde yazılmıştır. 
-Kafka: Veri iletişimi ve mesajlaşma için Kafka kullanılmıştır. 
-MongoDB: Verilerin depolanması için MongoDB tercih edilmiştir.
-Fly.io: Core, Consumer ve Producer Fly.io üzerinde çalışmaktadır.
-Upstash: Kafka serverless olarak Upstash üzerinde çalışmaktadır.
-MongoDB Atlas: MongoDB Atlas üzerinde çalışmaktadır.
-React.js: Frontend framework olarak React.js kullanılmıştır.
-Vercel: Frontend Vercel üzerinde çalışmaktadır.
