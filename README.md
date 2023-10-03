@@ -66,6 +66,7 @@ Access the [frontend](https://bynogamepriceanalyst.vercel.app/) to start using t
 - [ ] Add pagination.
 - [ ] Add Filter by item type, quality, rarity and exterior.
 - [ ] Add Filter by item quality.
+- [ ] Add notifications for low listing prices.
 
 
 ## Contributing
