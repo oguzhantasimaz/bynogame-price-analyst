@@ -17,6 +17,7 @@ func PostToCoreService(csItem domain.CsItem, coreServiceUrl string) error {
 
 	payload, err := json.Marshal(csItem)
 	if err != nil {
+		log.Error(err)
 		return err
 	}
 

@@ -17,7 +17,7 @@ func main() {
 	defer kw.Close()
 
 	cronClient := pkg.NewCronClient()
-	cronClient.Schedule("5m", func() {
+	cronClient.Schedule("1h", func() {
 		ProcessCsItems(kw)
 	})
 

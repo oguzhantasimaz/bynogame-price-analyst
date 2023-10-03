@@ -13,7 +13,7 @@ const (
 	byNoGameUrl          = "https://integration.bynogame.com/api/listing/last/"
 	byNoGameGameNameCs   = "csgo"
 	byNoGameGameNameDota = "dota2"
-	batchSize            = 25
+	batchSize            = 5
 	date                 = 0
 )
 
@@ -24,18 +24,21 @@ func GetBynoGameCsListings() (*[]domain.ByNoGameCsItem, error) {
 
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
+		log.Error(err)
 		return nil, err
 	}
 
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
+		log.Error(err)
 		return nil, err
 	}
 
 	var body []byte
 	body, err = io.ReadAll(resp.Body)
 	if err != nil {
+		log.Error(err)
 		return nil, err
 	}
 

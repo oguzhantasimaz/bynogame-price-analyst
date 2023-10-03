@@ -11,6 +11,7 @@ type Env struct {
 	KafkaPassword  string `mapstructure:"KAFKA_PASSWORD"`
 	KafkaBrokerUrl string `mapstructure:"KAFKA_BROKER_URL"`
 	CoreServiceUrl string `mapstructure:"CORE_SERVICE_URL"`
+	SteamWebApiKey string `mapstructure:"STEAMWEBAPI_KEY"`
 }
 
 func NewEnv() *Env {

@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"github.com/oguzhantasimaz/bynogame-price-analyst/consumer/bootstrap"
 	"github.com/oguzhantasimaz/bynogame-price-analyst/consumer/domain"
 	"github.com/oguzhantasimaz/bynogame-price-analyst/consumer/pkg"
@@ -34,7 +35,7 @@ func main() {
 
 		hashedName := util.HashItemName(bgCsItem.TypeInfoSteam.Hash)
 
-		sr, err := pkg.GetItemSteamMarketPrice(hashedName)
+		sr, err := pkg.GetItemFromSteamWebApi(hashedName, env.SteamWebApiKey)
 		if err != nil {
 			log.Error(err)
 			continue
@@ -42,10 +43,13 @@ func main() {
 
 		if sr == nil {
 			log.Error("Item not found in steam market: " + hashedName)
-			sr = &domain.SteamResponse{
-				Success: false,
-			}
 			continue
+		}
+
+		steamStats := domain.SteamResponse{
+			LowestPrice: fmt.Sprintf("%.2f", sr.Pricelatest),
+			Volume:      fmt.Sprintf("%d", sr.Dailysoldvolume),
+			MedianPrice: fmt.Sprintf("%.2f", sr.Pricemedian),
 		}
 
 		csItem := domain.CsItem{
@@ -65,11 +69,11 @@ func main() {
 			Status:           bgCsItem.Status,
 			CreatedAt:        bgCsItem.CreatedAt.UnixTime,
 			DateTimeSold:     bgCsItem.DateTimeSold.UnixTime,
-			SteamStats:       *sr,
+			SteamStats:       steamStats,
 		}
 
 		if err := pkg.PostToCoreService(csItem, env.CoreServiceUrl); err != nil {
-			log.Error(err)
+			log.Error("Core service request failed: ", err)
 			continue
 		}
 	}
