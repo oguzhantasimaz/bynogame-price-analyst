@@ -48,7 +48,6 @@ func main() {
 
 		steamStats := domain.SteamResponse{
 			LowestPrice: fmt.Sprintf("%.2f", sr.Pricelatest),
-			Volume:      fmt.Sprintf("%d", sr.Dailysoldvolume),
 			MedianPrice: fmt.Sprintf("%.2f", sr.Pricemedian),
 		}
 

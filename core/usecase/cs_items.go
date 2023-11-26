@@ -6,6 +6,7 @@ import (
 	"github.com/oguzhantasimaz/bynogame-price-analyst/core/repository"
 	log "github.com/sirupsen/logrus"
 	"go.mongodb.org/mongo-driver/bson"
+	"time"
 )
 
 type csItemUseCase struct {
@@ -29,6 +30,7 @@ func (cu *csItemUseCase) GetCsItems(ctx context.Context, limit int) ([]*domain.C
 }
 
 func (cu *csItemUseCase) PostCsItem(ctx context.Context, item *domain.CsItem) error {
+	item.CreatedAt = time.Now().Unix()
 	err := cu.csItemRepository.PostCsItem(ctx, item)
 	if err != nil {
 		return err
